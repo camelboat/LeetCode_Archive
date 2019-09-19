@@ -1,5 +1,3 @@
-# Procedure
-1. See the problem
-2. Create the folder in dolphin, with corrected name
-3. Generate new project in Clion
-4. Coding
+# LeetCode_Archive
+
+- Welcome ! This is the archive of my answers to LeetCode problems. If you have any questions or suggestions, please come to discuss with me.
