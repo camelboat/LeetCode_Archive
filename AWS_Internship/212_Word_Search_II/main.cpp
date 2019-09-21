@@ -16,19 +16,19 @@ private:
         }
     };
 
-    void insert_trie(trie_node *root, string tar)
-    {
-        for (auto &cur : tar)
-        {
-            int i = cur - 'a';
-            if (root->child[i] == NULL)
-            {
-                root->child[i] = new trie_node();
-            }
-            root = root->child[i];
-        }
-        root->str = tar;
-    }
+//    void insert_trie(trie_node *root, string tar)
+//    {
+//        for (auto &cur : tar)
+//        {
+//            int i = cur - 'a';
+//            if (root->child[i] == NULL)
+//            {
+//                root->child[i] = new trie_node();
+//            }
+//            root = root->child[i];
+//        }
+//        root->str = tar;
+//    }
 
 public:
     vector<string> findWords(vector<vector<char>> &board, vector<string> &words)
