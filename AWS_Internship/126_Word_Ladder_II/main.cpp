@@ -9,6 +9,7 @@ using namespace std;
 //// refer to https://github.com/grandyang/leetcode/issues/126
 
 
+//// BFS
 class Solution {
 public:
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
