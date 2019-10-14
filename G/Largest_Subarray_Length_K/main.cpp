@@ -1,37 +1,103 @@
 #include <iostream>
+#include <regex>
+#include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-class Solution {
-private:
-    static int cur_num(vector<int> &array, int K, int start)
+// compare two subarrays in array N started at index a and b with
+// length K; if the one started with a is larger than the one
+// started with b, return true; otherwise return false
+bool is_vector_larger(const vector<int> &N, int a, int b, int K)
+{
+    // compare each digit of two subarrays
+    for (int i = 0; i < K; ++i)
     {
-        return array[start]*1000+array[start+1]*100+array[start+2]*10+array[start+3];
+        if (N[a+i] > N[b+i]) return true;
+        if (N[a+i] < N[b+i]) return false;
     }
-public:
-    vector<int> largest_subarray_length_K(vector<int> &array, int K)
-    {
-        int max_index=0;
-        vector<int> answer = vector<int>(K, 0);
-        int max_tmp = cur_num(array, K, 0);
-        for (int i = 0; i < array.size()-K+1; ++i)
-        {
-            int tmp = cur_num(array, K, i);
-            max_index = tmp > max_tmp ? i : max_index;
-            max_tmp = tmp > max_tmp ? tmp : max_tmp;
-        }
-        for (int i = 0; i < K; ++i) answer[i] = array[max_index+i];
-        return answer;
-    }
-};
+    return false;
+}
 
+vector<int> solution(vector<int> N, int K)
+{
+    // Your solution goes here.
+    vector<int> answer = vector<int>(K, 0);
+
+    // use unordered_map to store the index
+    // of max digit, faster then using a vector
+    // to store the index since it doesn't require
+    // the erase operation each time the max value
+    // is updated
+    unordered_map<int, vector<int>> bas;
+
+    // use max_first to store the max digit value
+    int max_first = 0;
+
+    // traverse N to find the max digit value
+    // store the index of max digit into the map
+    for (int i = 0; i < N.size()-K+1; ++i)
+    {
+        // if N[i] is larger than current max digit
+        // value, update the value and add new entry
+        // to the map
+        if (N[i] > max_first)
+        {
+            max_first = N[i];
+            bas[max_first] = vector<int>(1,i);
+        }
+            // if N[i] is equal to the max digit value, add
+            // the index to the map
+        else if (N[i] == max_first) bas[max_first].emplace_back(i);
+    }
+
+    // for each vector of length K with the max digit value,
+    // find out the largest one
+    int max_index = bas[max_first][0];
+
+    // traverse all index of the max digit
+    for (int i = 1; i < bas[max_first].size(); ++i)
+    {
+        // if the vector is larger than the current largest vector
+        // update the max_index
+        max_index = is_vector_larger(N, bas[max_first][i], max_index, K) ? bas[max_first][i] : max_index;
+    }
+
+    // return the subarray started from the max_index with length K
+    return vector<int>(N.begin()+max_index, N.begin()+max_index+K);
+}
+
+vector<int> toIntVector(string str)
+{
+    std::vector<int> out;
+    std::string i;
+    std::istringstream tokenStream(str);
+    while (std::getline(tokenStream, i, ','))
+    {
+        out.push_back(atoi(i.c_str()));
+    }
+    return out;
+}
+
+string fromIntVector(vector<int> arr)
+{
+    string out = "";
+    for (int i=0; i<arr.size(); i++) {
+        out += to_string(arr[i]);
+        if (i != arr.size() - 1) {
+            out += ",";
+        }
+    }
+    return out;
+}
 
 int main()
 {
-    Solution test;
-    vector<int> array = {1,2,3,4,5};
-    int K = 4;
-    vector<int> result = test.largest_subarray_length_K(array, K);
-    for (auto &x: result) cout << x << " ";
+    // Read from stdin, solve the problem, write answer to stdout.
+    string arrS;
+    int K;
+    cin >> arrS >> K;
+    vector<int> N = toIntVector(arrS);
+    cout << fromIntVector(solution(N, K));
 }
