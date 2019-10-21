@@ -3,6 +3,23 @@
 
 using namespace std;
 
+//// 92.74%, 41.42%
+//// Hash set
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> bas;
+        for (int i = 0; i < nums.size(); ++i)
+        {
+            int x = nums[i];
+            if (bas.find(target-x) != bas.end()) return vector<int>{i, bas[target-x]};
+            bas[x] = i;
+        }
+        return vector<int>();
+    }
+};
+
+
 //// Hash set
 class Solution {
 public:
