@@ -2,6 +2,16 @@
 
 using namespace std;
 
+//// 100.00%, 100.00%
+// See Hint 4: For each used subsequence try to match 
+// the leftmost character of the current subsequence 
+// with the leftmost character of the target string, 
+// if they match then erase both character otherwise 
+// erase just the subsequence character whenever the 
+// current subsequence gets empty, reset it to a new 
+// copy of subsequence and increment the count, do this 
+// until the target sequence gets empty. Finally return 
+// the count.
 class Solution {
 private:
     vector<int> bas;
