@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//// 12.71%, 100.00%
+//// 87.28%, 100.00%
 class Solution {
 public:
     int connectSticks(vector<int>& sticks) {
