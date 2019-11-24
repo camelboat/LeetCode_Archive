@@ -6,6 +6,8 @@
 
 using namespace std;
 
+//// 98.19%, 80.00%
+//// convert into minutes
 class Solution {
 public:
     int findMinDifference(vector<string>& timePoints) {
