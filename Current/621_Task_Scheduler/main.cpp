@@ -30,3 +30,11 @@ public:
         return answer;
     }
 };
+
+int main(){
+    Solution test;
+    vector<char> tasks = {'A', 'A', 'B', 'B'};
+    int n = 2;
+    int answer = test.leastInterval(tasks, n);
+    cout << "total time = " << answer << '\n';
+}
