@@ -4,6 +4,33 @@
 
 using namespace std;
 
+//// 67.59%, 61.5%
+//// Map+binary search(upper_bound), use vector to store <timestamp, val>.
+class TimeMap {
+private:
+    unordered_map<string, vector<pair<int, string>>> dict;
+    static bool my_compare(const pair<int, string>& a, const pair<int, string>& b) {
+        return a.first < b.first;
+    }
+
+public:
+    /** Initialize your data structure here. */
+    TimeMap() {
+
+    }
+
+    void set(string key, string value, int timestamp) {
+        dict[key].push_back({timestamp, value});
+    }
+
+    string get(string key, int timestamp) {
+        if (dict.find(key) == dict.end()) return "";
+        auto it = upper_bound(dict[key].begin(), dict[key].end(), make_pair(timestamp, ""), my_compare);
+        if (it == dict[key].begin()) return "";
+        return prev(it,1)->second;
+    }
+};
+
 //// you should realize that the timestamp will only increase
 //// so that you don't need to sort the vector by yourself
 class TimeMap {
